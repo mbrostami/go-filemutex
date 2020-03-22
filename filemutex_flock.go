@@ -29,7 +29,7 @@ func New(filename string) (*FileMutex, error) {
 }
 
 func (m *FileMutex) Lock() error {
-	if err := syscall.Flock(m.fd, syscall.LOCK_EX); err != nil {
+	if err := syscall.Flock(m.fd, syscall.LOCK_EX|syscall.LOCK_NB); err != nil {
 		return err
 	}
 	return nil
