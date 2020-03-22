@@ -16,7 +16,9 @@ func main() {
 		log.Fatalln("Directory did not exist or file could not created")
 	}
 
-	err := m.TryLock()  // Will block until lock can be acquired
+	// m.TryLock() Will return error if lock is not released
+	// m.Lock() Will block until lock can be acquired
+	err := m.TryLock()  
 	if err != nil {
 		log.Fatalln("Already locked")	
 	}
