@@ -16,7 +16,10 @@ func main() {
 		log.Fatalln("Directory did not exist or file could not created")
 	}
 
-	m.Lock()  // Will block until lock can be acquired
+	err := m.TryLock()  // Will block until lock can be acquired
+	if err != nil {
+		log.Fatalln("Already locked")	
+	}
 
 	// Code here is protected by the mutex
 
@@ -26,6 +29,4 @@ func main() {
 
 ### Installation
 
-    go get github.com/alexflint/go-filemutex
-
-Forked from https://github.com/golang/build/tree/master/cmd/builder/filemutex_*.go
+    go get github.com/mbrostami/go-filemutex

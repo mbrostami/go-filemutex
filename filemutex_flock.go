@@ -28,7 +28,16 @@ func New(filename string) (*FileMutex, error) {
 	return &FileMutex{fd: fd}, nil
 }
 
+// Lock if locked, wait until lock is released
 func (m *FileMutex) Lock() error {
+	if err := syscall.Flock(m.fd, syscall.LOCK_EX); err != nil {
+		return err
+	}
+	return nil
+}
+
+// TryLock if locked return err
+func (m *FileMutex) TryLock() error {
 	if err := syscall.Flock(m.fd, syscall.LOCK_EX|syscall.LOCK_NB); err != nil {
 		return err
 	}
