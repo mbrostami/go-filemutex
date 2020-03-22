@@ -1,4 +1,4 @@
-module github.com/alexflint/go-filemutex
+module github.com/mbrostami/go-filemutex
 
 go 1.13
 
